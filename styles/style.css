@@ -139,7 +139,6 @@ html {
   bottom: 0;
   left: 0;
   background: rgba(255, 255, 255, 1);
-  /* display: none; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -156,7 +155,8 @@ html {
 }
 
 .game-over.show {
-  /* display: flex; */
+  -webkit-transition-delay: 200ms;
+  transition-delay: 600ms;
 
   -webkit-transform: translateY(0);
   transform: translateX(0);
