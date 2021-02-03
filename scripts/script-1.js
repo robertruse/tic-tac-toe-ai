@@ -1,7 +1,7 @@
 const cellElements = document.querySelectorAll(".cell");
 const boardElement = document.querySelector("#board");
 const gameOverElement = document.querySelector("#game-over");
-const gameOverTextElement = document.querySelector("#game-over-text");
+const gameOverTextElements = document.querySelectorAll(".game-over-text");
 const restartButton = document.querySelector("#restart-button");
 
 const X_CLASS = "x";
@@ -18,6 +18,7 @@ const WINNING_COMBINATIONS = [
 ];
 let circleTurn;
 let originalBoard;
+let numberOfPlayers;
 
 startGame();
 
@@ -34,20 +35,22 @@ function startGame() {
   });
   setBoardHoverClass();
   gameOverElement.classList.remove("show");
+  removeShowClass(gameOverTextElements);
 }
 
 function turnClick(e) {
   if (typeof originalBoard[e.target.id] !== "number") return;
   const cell = e.target;
   playerTurn(cell);
-  if (checkWin(originalBoard, X_CLASS)) return;
-  if (checkDraw(originalBoard)) return;
+  if (numberOfPlayers > 1) return;
+  if (checkWin(originalBoard, X_CLASS) || checkDraw(originalBoard)) return;
   setTimeout(() => {
     playerTurn(bestSpot());
-  }, 200);
+  }, 100);
 }
 
 function playerTurn(cell) {
+  if (checkWin(originalBoard, CIRCLE_CLASS)) return;
   const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS;
   placeMark(cell, currentClass);
   endTurn(originalBoard, currentClass);
@@ -59,8 +62,14 @@ function placeMark(cell, currentClass) {
 }
 
 function endTurn(board, currentClass) {
-  if (checkWin(board, currentClass)) declareWinner(currentClass);
+  //if (checkWin(board, currentClass)) declareWinner(currentClass);
+  if (checkWin(board, currentClass)) {
+    setTimeout(() => {
+      declareWinner(currentClass);
+    }, 200);
+  }
   if (checkDraw(board)) declareWinner(false);
+
   swapTurns();
   setBoardHoverClass();
 }
@@ -79,6 +88,7 @@ function checkDraw(board) {
   });
 }
 
+/*
 function declareWinner(currentClass) {
   switch (currentClass) {
     case X_CLASS:
@@ -89,6 +99,21 @@ function declareWinner(currentClass) {
       break;
     default:
       gameOverTextElement.innerText = "Draw.";
+  }
+  gameOverElement.classList.add("show");
+}
+*/
+
+function declareWinner(currentClass) {
+  switch (currentClass) {
+    case X_CLASS:
+      gameOverTextElements[0].classList.add("show");
+      break;
+    case CIRCLE_CLASS:
+      gameOverTextElements[1].classList.add("show");
+      break;
+    default:
+      gameOverTextElements[2].classList.add("show");
   }
   gameOverElement.classList.add("show");
 }
@@ -107,15 +132,11 @@ function setBoardHoverClass() {
   }
 }
 
-/* Dumb Ai */
-/*
-function bestSpot() {
-  //let randomIndex = Math.floor(Math.random() * emptySquares().length);
-  //let cellIndex = emptySquares()[randomIndex];
-  let cellIndex = emptySquares(originalBoard)[0];
-  return cellElements[cellIndex];
+function removeShowClass(nodeList) {
+  nodeList.forEach((item) => {
+    item.classList.remove("show");
+  });
 }
-*/
 
 /* Minimax algorithm AI */
 function bestSpot() {
@@ -147,20 +168,18 @@ function minimax(newBoard, player) {
     move.index = newBoard[availableSpots[i]];
     newBoard[availableSpots[i]] = player;
     if (player == CIRCLE_CLASS) {
-      let result = minimax(newBoard, X_CLASS);
-      move.score = result.score;
+      move.score = minimax(newBoard, X_CLASS).score;
     } else if (player == X_CLASS) {
-      let result = minimax(newBoard, CIRCLE_CLASS);
-      move.score = result.score;
+      move.score = minimax(newBoard, CIRCLE_CLASS).score;
     }
     newBoard[availableSpots[i]] = move.index;
     moves.push(move);
   }
 
-  let bestMove;
+  let bestMove, bestScore;
 
   if (player === CIRCLE_CLASS) {
-    let bestScore = -10000;
+    bestScore = -10000;
     for (let i = 0; i < moves.length; i++) {
       if (moves[i].score > bestScore) {
         bestScore = moves[i].score;
@@ -168,7 +187,7 @@ function minimax(newBoard, player) {
       }
     }
   } else if (player === X_CLASS) {
-    let bestScore = 10000;
+    bestScore = 10000;
     for (let i = 0; i < moves.length; i++) {
       if (moves[i].score < bestScore) {
         bestScore = moves[i].score;
@@ -179,3 +198,13 @@ function minimax(newBoard, player) {
 
   return moves[bestMove];
 }
+
+/* Dumb Ai */
+/*
+function bestSpot() {
+  //let randomIndex = Math.floor(Math.random() * emptySquares().length);
+  //let cellIndex = emptySquares()[randomIndex];
+  let cellIndex = emptySquares(originalBoard)[0];
+  return cellElements[cellIndex];
+}
+*/
