@@ -2,7 +2,10 @@ const cellElements = document.querySelectorAll(".cell");
 const boardElement = document.querySelector("#board");
 const gameOverElement = document.querySelector("#game-over");
 const gameOverTextElements = document.querySelectorAll(".game-over-text");
+const toggleButton = document.querySelector("#toggle-button");
+const menuElement = document.querySelector("#nav-menu");
 const restartButton = document.querySelector("#restart-button");
+const playerCountButtons = document.querySelectorAll(".nav-menu .btn");
 
 const X_CLASS = "x";
 const CIRCLE_CLASS = "circle";
@@ -18,11 +21,33 @@ const WINNING_COMBINATIONS = [
 ];
 let circleTurn;
 let originalBoard;
-let numberOfPlayers;
+let playerCount;
 
-startGame();
+toggleButton.addEventListener("click", openMenu);
+
+function openMenu(e) {
+  toggleButton.classList.toggle("show");
+  menuElement.classList.toggle("show");
+}
+
+function closeMenu(e) {
+  toggleButton.classList.remove("show");
+  menuElement.classList.remove("show");
+}
+
+playerCountButtons.forEach((button) => {
+  button.addEventListener("click", setPlayerCount);
+});
+
+function setPlayerCount(e) {
+  let buttonId = e.currentTarget.id;
+  playerCount = buttonId.slice(buttonId.length - 1);
+  startGame();
+}
 
 restartButton.addEventListener("click", startGame);
+
+startGame();
 
 function startGame() {
   circleTurn = false;
@@ -36,13 +61,18 @@ function startGame() {
   setBoardHoverClass();
   gameOverElement.classList.remove("show");
   removeShowClass(gameOverTextElements);
+  if (playerCount) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
 }
 
 function turnClick(e) {
   if (typeof originalBoard[e.target.id] !== "number") return;
   const cell = e.target;
   playerTurn(cell);
-  if (numberOfPlayers > 1) return;
+  if (playerCount > 1) return;
   if (checkWin(originalBoard, X_CLASS) || checkDraw(originalBoard)) return;
   setTimeout(() => {
     playerTurn(bestSpot());
@@ -67,8 +97,9 @@ function endTurn(board, currentClass) {
     setTimeout(() => {
       declareWinner(currentClass);
     }, 200);
+  } else if (checkDraw(board)) {
+    declareWinner(false);
   }
-  if (checkDraw(board)) declareWinner(false);
 
   swapTurns();
   setBoardHoverClass();
@@ -87,22 +118,6 @@ function checkDraw(board) {
     return currentValue === X_CLASS || currentValue === CIRCLE_CLASS;
   });
 }
-
-/*
-function declareWinner(currentClass) {
-  switch (currentClass) {
-    case X_CLASS:
-      gameOverTextElement.innerText = "X's win!";
-      break;
-    case CIRCLE_CLASS:
-      gameOverTextElement.innerText = "O's win!";
-      break;
-    default:
-      gameOverTextElement.innerText = "Draw.";
-  }
-  gameOverElement.classList.add("show");
-}
-*/
 
 function declareWinner(currentClass) {
   switch (currentClass) {

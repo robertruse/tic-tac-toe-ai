@@ -13,36 +13,95 @@
     <script src="scripts/script-1.js" defer></script>
   </head>
   <body>
-    <div class="container">
-      <div class="container-logo">
-        <img
-          src="images/ttt-logo-1.svg"
-          alt="Tic Tac Toe logo"
-          class="logo"
-          id="logo-lg"
-        />
-        <img
-          src="images/ttt-logo-2.svg"
-          alt="Tic Tac Toe logo"
-          class="logo"
-          id="logo-sm"
-        />
+    <!-- Navbar -->
+    <header class="header" id="header">
+      <div class="nav-bar">
+        <nav class="nav-menu" id="nav-menu">
+          <ul class="nav-list">
+            <li class="container-text">
+              <img
+                src="images/ttt-new-game.svg"
+                alt=""
+                class="nav-text"
+                id="new-game"
+              />
+            </li>
+            <li>
+              <button class="btn" id="player-count-1">VS Computer</button>
+            </li>
+            <li>
+              <button class="btn btn-secondary" id="player-count-2">
+                VS Human
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="container">
+          <div class="nav-toggle" id="toggle-button">
+            <span class="hamburger" id="hamburger"></span>
+          </div>
+        </div>
       </div>
-      <div class="board" id="board">
-        <div class="cell" id="0"></div>
-        <div class="cell" id="1"></div>
-        <div class="cell" id="2"></div>
-        <div class="cell" id="3"></div>
-        <div class="cell" id="4"></div>
-        <div class="cell" id="5"></div>
-        <div class="cell" id="6"></div>
-        <div class="cell" id="7"></div>
-        <div class="cell" id="8"></div>
+    </header>
+
+    <!-- Game -->
+    <section class="game" id="game">
+      <div class="container">
+        <div class="container-logo">
+          <img
+            src="images/ttt-logo-1.svg"
+            alt="Tic Tac Toe logo"
+            class="logo"
+            id="logo-lg"
+          />
+          <img
+            src="images/ttt-logo-2.svg"
+            alt="Tic Tac Toe logo"
+            class="logo"
+            id="logo-sm"
+          />
+        </div>
+        <div class="board" id="board">
+          <div class="cell" id="0"></div>
+          <div class="cell" id="1"></div>
+          <div class="cell" id="2"></div>
+          <div class="cell" id="3"></div>
+          <div class="cell" id="4"></div>
+          <div class="cell" id="5"></div>
+          <div class="cell" id="6"></div>
+          <div class="cell" id="7"></div>
+          <div class="cell" id="8"></div>
+        </div>
       </div>
-    </div>
-    <div class="game-over" id="game-over">
-      <div class="game-over-text" id="game-over-text">X Wins!</div>
-      <button class="btn" id="restart-button">Restart</button>
-    </div>
+    </section>
+
+    <section class="game-over" id="game-over">
+      <ul>
+        <li class="container-text">
+          <img
+            src="images/ttt-x-win.svg"
+            alt=""
+            class="game-over-text"
+            id="x-win"
+          />
+          <img
+            src="images/ttt-o-win.svg"
+            alt=""
+            class="game-over-text"
+            id="o-win"
+          />
+          <img
+            src="images/ttt-draw.svg"
+            alt=""
+            class="game-over-text"
+            id="draw"
+          />
+        </li>
+        <li>
+          <button class="btn" id="restart-button">Restart</button>
+        </li>
+      </ul>
+    </section>
   </body>
 </html>
