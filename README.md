@@ -10,4 +10,4 @@ In this project I built a minimal game of Tic Tac Toe. I used HTML5, CSS3 and mo
 
 ## Live Page
 
-You can view the live page [here](https://robertruse.github.io/tic-tac-toe-ai/).
+You can view the live page [here](https://robertruse.github.io/tic-tac-toe-v2/).
