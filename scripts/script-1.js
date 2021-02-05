@@ -3,6 +3,7 @@ const boardElement = document.querySelector("#board");
 const gameOverElement = document.querySelector("#game-over");
 const gameOverTextElements = document.querySelectorAll(".game-over-text");
 const toggleButton = document.querySelector("#toggle-button");
+const navBarElement = document.querySelector("#nav-bar");
 const menuElement = document.querySelector("#nav-menu");
 const restartButton = document.querySelector("#restart-button");
 const playerCountButtons = document.querySelectorAll(".nav-menu .btn");
@@ -26,13 +27,15 @@ let playerCount;
 toggleButton.addEventListener("click", openMenu);
 
 function openMenu(e) {
-  toggleButton.classList.toggle("show");
-  menuElement.classList.toggle("show");
+  //toggleButton.classList.toggle("show");
+  //menuElement.classList.toggle("show");
+  navBarElement.classList.toggle("show");
 }
 
 function closeMenu(e) {
-  toggleButton.classList.remove("show");
-  menuElement.classList.remove("show");
+  //toggleButton.classList.remove("show");
+  //menuElement.classList.remove("show");
+  navBarElement.classList.remove("show");
 }
 
 playerCountButtons.forEach((button) => {
@@ -47,7 +50,7 @@ function setPlayerCount(e) {
 
 restartButton.addEventListener("click", startGame);
 
-startGame();
+//startGame();
 
 function startGame() {
   circleTurn = false;
@@ -61,11 +64,14 @@ function startGame() {
   setBoardHoverClass();
   gameOverElement.classList.remove("show");
   removeShowClass(gameOverTextElements);
+
   if (playerCount) {
-    closeMenu();
+    toggleButton.classList.add("show");
   } else {
-    openMenu();
+    toggleButton.classList.remove("show");
   }
+
+  closeMenu();
 }
 
 function turnClick(e) {

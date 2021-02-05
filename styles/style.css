@@ -92,6 +92,7 @@ img {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  max-width: calc(1150px + (var(--cell-size) * 2));
 }
 
 .nav-toggle {
@@ -99,13 +100,17 @@ img {
   min-width: 56px;
   position: relative;
   z-index: 8;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 
   -webkit-transform: translateX(12px);
   transform: translateX(12px);
+}
+
+.nav-toggle.show {
+  display: flex;
 }
 
 .hamburger {
@@ -143,12 +148,12 @@ img {
   top: 6px;
 }
 
-.nav-toggle.show .hamburger::before {
+.nav-bar.show .nav-toggle .hamburger::before {
   -webkit-transform: translateY(6px) rotate(135deg);
   transform: translateY(6px) rotate(135deg);
 }
 
-.nav-toggle.show .hamburger::after {
+.nav-bar.show .nav-toggle .hamburger::after {
   -webkit-transform: translateY(-6px) rotate(-135deg);
   transform: translateY(-6px) rotate(-135deg);
 }
@@ -174,7 +179,7 @@ img {
   transition: opacity 400ms var(--anim-ease-out);
 }
 
-.nav-menu.show {
+.nav-bar.show .nav-menu {
   opacity: 1;
 
   -webkit-transform: translateY(0);
@@ -204,7 +209,7 @@ img {
   transform: translateY(calc(var(--cell-size) / 3));
 }
 
-.nav-menu.show li {
+.nav-bar.show .nav-menu li {
   opacity: 1;
 
   -webkit-transform: translateY(0);
@@ -216,12 +221,12 @@ img {
     400ms var(--anim-ease-out);
 }
 
-.nav-menu li:nth-child(2) {
+.nav-bar.show .nav-menu li:nth-child(2) {
   -webkit-transition-delay: 100ms;
   transition-delay: 100ms;
 }
 
-.nav-menu li:last-child {
+.nav-bar.show .nav-menu li:last-child {
   -webkit-transition-delay: 200ms;
   transition-delay: 200ms;
 }
@@ -445,9 +450,13 @@ img {
   }
 
   .conteiner,
-  .nav-bar .conteiner,
+  .nav-bar .container,
   .game .container {
     padding: 0 24px;
+  }
+
+  .nav-bar .container {
+    max-width: calc((var(--cell-size) * 3) + (var(--board-gap) * 2) + 104px);
   }
 
   .btn {
@@ -472,6 +481,10 @@ img {
 @media (max-width: 376px) {
   :root {
     --cell-size: 84px;
+  }
+
+  .nav-bar .container {
+    max-width: calc((var(--cell-size) * 3) + (var(--board-gap) * 2) + 48px);
   }
 }
 
