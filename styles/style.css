@@ -455,15 +455,19 @@ img {
     padding: 0 24px;
   }
 
-  .nav-bar .container {
-    max-width: calc((var(--cell-size) * 3) + (var(--board-gap) * 2) + 104px);
-  }
-
   .btn {
     min-width: calc((var(--cell-size) * 3) + (var(--board-gap) * 2));
     min-height: var(--cell-size);
     font-size: calc(var(--board-gap) * 3.5);
     border-width: calc(var(--board-gap) / 3.6);
+  }
+
+  .nav-bar .container {
+    max-width: calc((var(--cell-size) * 3) + (var(--board-gap) * 2) + 104px);
+  }
+
+  .nav-menu .btn:first-child {
+    margin-bottom: calc(var(--board-gap) * 2);
   }
 
   .nav-menu .container-text,
