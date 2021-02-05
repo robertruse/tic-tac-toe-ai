@@ -1,6 +1,6 @@
 :root {
   --cell-size: 160px;
-  --cell-size: 144px;
+  /* --cell-size: 144px; */
   --board-gap: calc(var(--cell-size) * 0.1);
   --mark-size: calc(var(--cell-size) * 0.7);
 
@@ -413,6 +413,12 @@ img {
 }
 
 /* Media queries */
+@media (max-width: 1600px) {
+  :root {
+    --cell-size: 144px;
+  }
+}
+
 @media (max-width: 1024px) {
   :root {
     --cell-size: 132px;
