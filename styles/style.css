@@ -1,6 +1,5 @@
 :root {
   --cell-size: 160px;
-  /* --cell-size: 144px; */
   --board-gap: calc(var(--cell-size) * 0.1);
   --mark-size: calc(var(--cell-size) * 0.7);
 
@@ -40,7 +39,6 @@ img {
   max-width: 1150px;
   margin: 0 auto;
   padding: 0 64px;
-  /* overflow: auto; */
 }
 
 .btn {
@@ -455,7 +453,7 @@ img {
     --cell-size: 92px;
   }
 
-  .conteiner,
+  .container,
   .nav-bar .container,
   .game .container {
     padding: 0 24px;
