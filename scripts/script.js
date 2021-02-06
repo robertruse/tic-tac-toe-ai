@@ -1,9 +1,9 @@
-const cellElements = document.querySelectorAll(".cell");
 const boardElement = document.querySelector("#board");
+const cellElements = document.querySelectorAll(".cell");
 const gameOverElement = document.querySelector("#game-over");
 const gameOverTextElements = document.querySelectorAll(".game-over-text");
-const toggleButton = document.querySelector("#toggle-button");
 const navBarElement = document.querySelector("#nav-bar");
+const toggleButton = document.querySelector("#toggle-button");
 const menuElement = document.querySelector("#nav-menu");
 const restartButton = document.querySelector("#restart-button");
 const playerCountButtons = document.querySelectorAll(".nav-menu .btn");
@@ -27,14 +27,10 @@ let playerCount;
 toggleButton.addEventListener("click", openMenu);
 
 function openMenu(e) {
-  //toggleButton.classList.toggle("show");
-  //menuElement.classList.toggle("show");
   navBarElement.classList.toggle("show");
 }
 
 function closeMenu(e) {
-  //toggleButton.classList.remove("show");
-  //menuElement.classList.remove("show");
   navBarElement.classList.remove("show");
 }
 
@@ -50,8 +46,6 @@ function setPlayerCount(e) {
 
 restartButton.addEventListener("click", startGame);
 
-//startGame();
-
 function startGame() {
   circleTurn = false;
   originalBoard = Array.from(Array(9).keys());
@@ -64,14 +58,12 @@ function startGame() {
   setBoardHoverClass();
   gameOverElement.classList.remove("show");
   removeShowClass(gameOverTextElements);
-
+  closeMenu();
   if (playerCount) {
     toggleButton.classList.add("show");
   } else {
     toggleButton.classList.remove("show");
   }
-
-  closeMenu();
 }
 
 function turnClick(e) {
@@ -98,15 +90,15 @@ function placeMark(cell, currentClass) {
 }
 
 function endTurn(board, currentClass) {
-  //if (checkWin(board, currentClass)) declareWinner(currentClass);
   if (checkWin(board, currentClass)) {
     setTimeout(() => {
       declareWinner(currentClass);
     }, 200);
   } else if (checkDraw(board)) {
-    declareWinner(false);
+    setTimeout(() => {
+      declareWinner(false);
+    }, 200);
   }
-
   swapTurns();
   setBoardHoverClass();
 }
